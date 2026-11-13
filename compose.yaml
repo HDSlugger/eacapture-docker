@@ -1,0 +1,15 @@
+services:
+  eacapture:
+    image: ghcr.io/hdslugger/eacapture:latest
+    build: .                    # used by: docker compose up -d --build
+    container_name: eacapture
+    restart: unless-stopped
+    network_mode: host          # needed so the tuner can be found on your LAN
+    environment:
+      TZ: America/Los_Angeles   # change to your time zone
+      # EACAPTURE_UPDATE_SCRIPT: "1"   # re-download Silicondust's script on start
+    volumes:
+      - eacapture-data:/data
+
+volumes:
+  eacapture-data:
