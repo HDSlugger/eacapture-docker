@@ -1,21 +1,21 @@
 # EACapture for Docker
 
-An unofficial Docker wrapper for **EACapture**, Silicondust's capture program for
-ATSC 3.0 HDHomeRun tuners. It is not made or endorsed by Silicondust.
+An unofficial Docker wrapper for **EACapture**, SiliconDust's capture program for
+ATSC 3.0 HDHomeRun tuners. It is not made or endorsed by SiliconDust.
 
 ## Why run this?
 
-Silicondust is evaluating how ATSC 3.0 channels, including encrypted ones, perform
+SiliconDust is evaluating how ATSC 3.0 channels, including encrypted ones, perform
 during the **national Emergency Alert System (EAS) test**. To do that, they need
 real over-the-air recordings from tuners in many homes.
 
 EACapture does this automatically:
 
 1. It finds your ATSC 3.0 HDHomeRun tuner on your network.
-2. It checks in with Silicondust's server (`eastest.silicondust.com`) every 8 hours
+2. It checks in with SiliconDust's server (`eastest.silicondust.com`) every 8 hours
    to get a schedule of capture jobs.
 3. At each scheduled time it records a short stretch from your tuner.
-4. A little later it uploads that recording to Silicondust, then deletes its local copy.
+4. A little later it uploads that recording to SiliconDust, then deletes its local copy.
 
 **For the recording to be useful, this must be running before, during and after the
 test.** The test is scheduled for **November 17, 2026, around 2:20 p.m. Eastern**
@@ -23,10 +23,10 @@ test.** The test is scheduled for **November 17, 2026, around 2:20 p.m. Eastern*
 running, for that whole period.
 
 The recordings are broadcast TV signals from your own tuner, and they are sent to
-Silicondust. Read their instructions and privacy information before taking part.
+SiliconDust. Read their instructions and privacy information before taking part.
 
-This repository does **not** contain Silicondust's script. The container downloads
-it from Silicondust (`https://download.silicondust.com/EACapture/eacapture.php.txt`)
+This repository does **not** contain SiliconDust's script. The container downloads
+it from SiliconDust (`https://download.silicondust.com/EACapture/eacapture.php.txt`)
 the first time it starts, prints its SHA-256 in the log, and runs it unmodified.
 
 ## What you need
@@ -46,7 +46,7 @@ the first time it starts, prints its SHA-256 in the log, and runs it unmodified.
   machine, so the tuner may not be found. If the log says "Device discovery found
   no devices", this is why. Docker Desktop has an optional host-networking setting
   (Settings, Resources, Network) that may help, but it is not guaranteed.
-  Silicondust's regular Windows program is a more reliable option on those machines.
+  SiliconDust's regular Windows program is a more reliable option on those machines.
 
 ## 1. Download
 
@@ -91,7 +91,7 @@ Start it in the background:
 
     docker compose up -d
 
-The first start downloads Silicondust's script. Watch the log:
+The first start downloads SiliconDust's script. Watch the log:
 
     docker compose logs -f
 
@@ -112,7 +112,7 @@ as long as Docker itself starts at login.
 
 ### Unraid installation (assuming Docker installed)
 
-Thank you to u/v1605 at the Silicondust forum for the following instructions:
+Thank you to u/v1605 at the SiliconDust forum for the following instructions:
 
 Go to the Docker tab and click Add Container.
    
@@ -157,7 +157,7 @@ After November 17, 2026, 10 p.m. Eastern, disable or remove the container.
   already underway when the program starts is skipped.
 - Check the log once the day before to confirm "Next capture to run at ...".
 
-## Update Silicondust's script
+## Update SiliconDust's script
 
 The script is cached in the data volume. To fetch the latest copy, uncomment this
 line in `compose.yaml`:
@@ -184,7 +184,7 @@ each is deleted after a successful upload).
 ## Files in this project
 
 - `Dockerfile`: a small PHP 8.4 image with the `sockets` extension and `curl`.
-- `entrypoint.sh`: downloads Silicondust's script, prints its SHA-256, runs it.
+- `entrypoint.sh`: downloads SiliconDust's script, prints its SHA-256, runs it.
 - `compose.yaml`: how to run it (host networking, volume, restart policy).
 - `.github/workflows/publish.yml`: builds and publishes the image to GitHub's
   container registry for Intel and ARM.
@@ -192,4 +192,4 @@ each is deleted after a successful upload).
 ## Disclaimer
 
 This is an unofficial community wrapper provided as is. EACapture and HDHomeRun are
-Silicondust's. Check Silicondust's own instructions for the test.
+SiliconDust's. Check SiliconDust's own instructions for the test.
