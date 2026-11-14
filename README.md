@@ -1,7 +1,7 @@
 # EACapture for Docker
 
 An unofficial Docker wrapper for **EACapture**, SiliconDust's capture program for
-ATSC 3.0 HDHomeRun tuners. It is not made or endorsed by SiliconDust.
+ATSC 3.0 HDHomeRun tuners. It is not made or endorsed by SiliconDust. (Although they did reference it in their newsletter...)
 
 ## Why run this?
 
