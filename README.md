@@ -110,6 +110,27 @@ Press Ctrl+C to stop watching the log; the container keeps running.
 uploads on its own. It restarts automatically after reboots (`restart: unless-stopped`)
 as long as Docker itself starts at login.
 
+### Unraid installation
+
+Thank you to u/v1605 at the Silicondust forum for the following instructions:
+
+Now that EACapture has a Docker container, you can set it up by hand in Unraid. This was the best option for me. I don't have a Windows PC I can count on to be running during the test, but my NAS is always on. Here's how to set it up:
+
+    Go to the Docker tab and click Add Container.
+    Fill in the following:
+        Name: eacapture
+        Repository: ghcr.io/hdslugger/eacapture:latest
+        Network Type: Host
+    Add a Path:
+        Container Path: /data
+        Host Path: /mnt/user/appdata/eacapture
+    Add a Variable:
+        Key: TZ
+        Value: your time zone, e.g. America/New_York
+    Click Apply, then check the logs for "Check-in succeeded".
+    Set the container to autostart.
+    After November 17, 2026, 10 p.m. Eastern, disable or remove the container.
+
 ### Common problems
 
 | Log message | What to do |
