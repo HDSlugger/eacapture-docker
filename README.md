@@ -119,20 +119,25 @@ Now that EACapture has a Docker container, you can set it up by hand in Unraid. 
  Go to the Docker tab and click Add Container.
    
 Fill in the following:
+        
         Name: eacapture
         Repository: ghcr.io/hdslugger/eacapture:latest
         Network Type: Host
         
 Add a Path:
+        
         Container Path: /data
         Host Path: /mnt/user/appdata/eacapture
       
 Add a Variable:
+       
         Key: TZ
         Value: your time zone, e.g. America/New_York
     
 Click Apply, then check the logs for "Check-in succeeded".
+
 Set the container to autostart.
+
 After November 17, 2026, 10 p.m. Eastern, disable or remove the container.
 
 ### Common problems
