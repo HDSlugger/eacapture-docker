@@ -138,7 +138,7 @@ Set the container to autostart.
 
 After November 17, 2026, 10 p.m. Eastern, disable or remove the container.
 
-### Common problems
+## Common problems
 
 | Log message | What to do |
 |---|---|
@@ -192,4 +192,4 @@ each is deleted after a successful upload).
 ## Disclaimer
 
 This is an unofficial community wrapper provided as is. EACapture and HDHomeRun are
-SiliconDust's. Check SiliconDust's own instructions for the test.
+SiliconDust's. Check SiliconDust's own instructions for the test: https://forum.silicondust.com/forum/viewtopic.php?t=80838
