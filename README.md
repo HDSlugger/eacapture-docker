@@ -110,13 +110,13 @@ Press Ctrl+C to stop watching the log; the container keeps running.
 uploads on its own. It restarts automatically after reboots (`restart: unless-stopped`)
 as long as Docker itself starts at login.
 
-### Unraid installation (assuming Docker installed)
+## Unraid installation (assuming Docker installed)
 
 Thank you to u/v1605 at the SiliconDust forum for the following instructions:
 
-Go to the Docker tab and click Add Container.
+ Go to the Docker tab and click Add Container.
    
-Fill in the following:
+ Fill in the following:
         
         Name: eacapture
         Repository: ghcr.io/hdslugger/eacapture:latest
