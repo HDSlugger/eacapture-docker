@@ -110,13 +110,11 @@ Press Ctrl+C to stop watching the log; the container keeps running.
 uploads on its own. It restarts automatically after reboots (`restart: unless-stopped`)
 as long as Docker itself starts at login.
 
-### Unraid installation
+### Unraid installation (assuming Docker installed)
 
 Thank you to u/v1605 at the Silicondust forum for the following instructions:
 
-Now that EACapture has a Docker container, you can set it up by hand in Unraid. This was the best option for me. I don't have a Windows PC I can count on to be running during the test, but my NAS is always on. Here's how to set it up:
-
- Go to the Docker tab and click Add Container.
+Go to the Docker tab and click Add Container.
    
 Fill in the following:
         
