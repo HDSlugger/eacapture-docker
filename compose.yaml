@@ -4,10 +4,10 @@ services:
     build: .                    # used by: docker compose up -d --build
     container_name: eacapture
     restart: unless-stopped
-    network_mode: host          # needed so the tuner can be found on your LAN
+    network_mode: host          # needed for auto-discovery; optional if HDHR_IP is set
     environment:
       TZ: America/Los_Angeles   # change to your time zone
-      # EACAPTURE_UPDATE_SCRIPT: "1"   # re-download Silicondust's script on start
+      # HDHR_IP: 192.168.1.100  # specify your HDHomeRun IP if on another network/VLAN
     volumes:
       - eacapture-data:/data
 
