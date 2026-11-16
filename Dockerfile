@@ -7,6 +7,9 @@ RUN apk add --no-cache curl tzdata ca-certificates \
  && docker-php-ext-install sockets \
  && apk del .build-headers
 
+COPY eacapture.php /usr/local/bin/eacapture.php
+RUN chmod +x /usr/local/bin/eacapture.php
+
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 

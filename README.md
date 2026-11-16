@@ -25,9 +25,7 @@ running, for that whole period.
 The recordings are broadcast TV signals from your own tuner, and they are sent to
 SiliconDust. Read their instructions and privacy information before taking part.
 
-This repository does **not** contain SiliconDust's script. The container downloads
-it from SiliconDust (`https://download.silicondust.com/EACapture/eacapture.php.txt`)
-the first time it starts, prints its SHA-256 in the log, and runs it unmodified.
+The image bundles `eacapture.php` with support for auto-discovery as well as specifying your HDHomeRun tuner's IP directly (`HDHR_IP`). Specifying an IP bypasses UDP broadcast discovery by querying the tuner over HTTP directly, making it easy to run across subnets/VLANs or in virtualized environments like Docker Desktop.
 
 ## What you need
 
@@ -42,11 +40,10 @@ the first time it starts, prints its SHA-256 in the log, and runs it unmodified.
 
 - **Linux, NAS or Raspberry Pi:** best choice. Host networking works, so the
   container can find the tuner.
-- **Mac or Windows with Docker Desktop:** Docker runs containers in a hidden virtual
-  machine, so the tuner may not be found. If the log says "Device discovery found
-  no devices", this is why. Docker Desktop has an optional host-networking setting
-  (Settings, Resources, Network) that may help, but it is not guaranteed.
-  SiliconDust's regular Windows program is a more reliable option on those machines.
+- **Mac or Windows with Docker Desktop:** Docker runs containers in a virtual
+  machine, so local UDP broadcast discovery often fails ("Device discovery found
+  no devices"). You can easily bypass discovery by specifying your tuner's IP with
+  `HDHR_IP` in `compose.yaml`.
 
 ## 1. Download
 
@@ -142,7 +139,7 @@ After November 17, 2026, 10 p.m. Eastern, disable or remove the container.
 
 | Log message | What to do |
 |---|---|
-| `Device discovery found no devices` | The container cannot see your tuner. On Docker Desktop, see "Which computer?" above. Make sure the tuner and computer share a network. |
+| `Device discovery found no devices` | The container cannot see your tuner via UDP broadcast. Set `HDHR_IP` in `compose.yaml` to specify your tuner's IP directly across subnets or on Docker Desktop. |
 | `not running latest firmware` | Update the tuner in the HDHomeRun app. |
 | `Please run a new channel scan` | Run a channel scan in the HDHomeRun app (Settings, Channels), then restart: `docker compose restart` |
 | `No ATSC 3.0 channels detected` | The tuner needs a scan that finds ATSC 3.0 channels. |
@@ -157,15 +154,6 @@ After November 17, 2026, 10 p.m. Eastern, disable or remove the container.
   already underway when the program starts is skipped.
 - Check the log once the day before to confirm "Next capture to run at ...".
 
-## Update SiliconDust's script
-
-The script is cached in the data volume. To fetch the latest copy, uncomment this
-line in `compose.yaml`:
-
-    EACAPTURE_UPDATE_SCRIPT: "1"
-
-and run `docker compose up -d`. Remember to comment it out again.
-
 ## Stop and uninstall
 
 Please stop it after the test ends (**November 17, 2026, 10 p.m. Eastern**).
@@ -177,14 +165,14 @@ Please stop it after the test ends (**November 17, 2026, 10 p.m. Eastern**).
 ## What is stored
 
 Everything lives in one Docker volume, `eacapture-data`:
-`eacapture.php` (the script), `checkin_state.json` (your last check-in and the
-capture schedule), `eacapture.lock`, and `Captures/` (recordings waiting to upload;
-each is deleted after a successful upload).
+`checkin_state.json` (your last check-in and the capture schedule), `eacapture.lock`,
+and `Captures/` (recordings waiting to upload; each is deleted after a successful upload).
 
 ## Files in this project
 
-- `Dockerfile`: a small PHP 8.4 image with the `sockets` extension and `curl`.
-- `entrypoint.sh`: downloads SiliconDust's script, prints its SHA-256, runs it.
+- `Dockerfile`: a small PHP 8.4 image with the `sockets` extension, `curl`, and bundled `eacapture.php`.
+- `entrypoint.sh`: image entrypoint that configures timezone and launches EACapture with optional `HDHR_IP`.
+- `eacapture.php`: EACapture PHP script with ATSC 3.0 tuner discovery and HTTP direct IP support.
 - `compose.yaml`: how to run it (host networking, volume, restart policy).
 - `.github/workflows/publish.yml`: builds and publishes the image to GitHub's
   container registry for Intel and ARM.
